@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="TasksStyleSheet.xsl"?>
+<Tasks>
+  <Task>
+    <Name>Task 1</Name>
+    <TimeCount>00:04:47</TimeCount>
+    <IsRunning>True</IsRunning>
+  </Task>
+  <Task>
+    <Name>Task 2</Name>
+    <TimeCount>00:04:44</TimeCount>
+    <IsRunning>False</IsRunning>
+  </Task>
+</Tasks>

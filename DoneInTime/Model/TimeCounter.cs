@@ -6,14 +6,16 @@ using System.Collections.ObjectModel;
 using System.Windows.Threading;
 using System.Xml;
 using System.IO;
+using System.ComponentModel;
 
 namespace DoneInTime.Model
 {
-    public class TimeCounter
+    public class TimeCounter : INotifyPropertyChanged
     {
         #region "Members"
         public ObservableCollection<Task> Tasks { get; set; }
         public string XmlFile { get; private set; }
+        public TimeSpan TotalTimeCount { get; private set; }
 
         private DispatcherTimer _timer;
         #endregion
@@ -26,6 +28,17 @@ namespace DoneInTime.Model
         #endregion
 
         #region "Methods"
+        public void ActualizeTotalTimeCount()
+        {
+            TimeSpan ts = new TimeSpan();
+            foreach (Task t in Tasks)
+            {
+                ts = ts.Add(t.TimeCount);
+            }
+            TotalTimeCount = ts;
+            NotifyPropertyChanged("TotalTimeCount");
+        }
+
         private void InitializeTimer()
         {
             _timer = new DispatcherTimer();
@@ -97,6 +110,17 @@ namespace DoneInTime.Model
         }
         #endregion
 
+        #region "Events"
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+        #endregion
+
         #region "Constructors"
         public TimeCounter(string xmlFile)
         {
@@ -105,6 +129,7 @@ namespace DoneInTime.Model
 
             LoadFromXML();
             InitializeTimer();
+            ActualizeTotalTimeCount();
         }
         #endregion
     }

@@ -73,7 +73,9 @@
                     <TextBlock VerticalAlignment="Center">Reset tasks</TextBlock>
                 </StackPanel>
             </Button>
+            
         </StackPanel>
+        <TextBlock Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Width="70" Text="{Binding Path=TimeCounter.TotalTimeCount}" />
         <DataGrid
             AutoGenerateColumns="False" RowStyle="{StaticResource rowStyle}"
             Name="dgTasks" 

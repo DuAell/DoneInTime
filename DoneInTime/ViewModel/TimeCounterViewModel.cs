@@ -16,7 +16,7 @@ namespace DoneInTime.ViewModel
     public class TimeCounterViewModel
     {
         #region "Members"
-        private TimeCounter _timeCounter;
+        public TimeCounter TimeCounter { get; private set; }
 
         private ObservableCollection<TaskViewModel> _tasks;
 
@@ -27,9 +27,9 @@ namespace DoneInTime.ViewModel
         public ICommand AddTaskCommand { get; internal set;} 
         public void ExecuteAddTaskCommand()
         {
-            Task t = new Task("New Task", _timeCounter);
+            Task t = new Task("New Task", TimeCounter);
             _tasks.Add(new TaskViewModel(t));
-            _timeCounter.Tasks.Add(t);
+            TimeCounter.Tasks.Add(t);
         }
 
         public ICommand DelTaskCommand { get; internal set; }
@@ -37,7 +37,7 @@ namespace DoneInTime.ViewModel
         {
             TaskViewModel tv = (TaskViewModel)Tasks.CurrentItem;
             _tasks.Remove(tv);
-            _timeCounter.Tasks.Remove(tv.Task);
+            TimeCounter.Tasks.Remove(tv.Task);
             tv.Task.Dispose();
         }
         public bool CanExecuteDelTaskCommand()
@@ -65,9 +65,9 @@ namespace DoneInTime.ViewModel
         public TimeCounterViewModel()
         {
 
-            _timeCounter = new TimeCounter(Properties.Settings.Default.xmlPath + "Tasks.xml");
+            TimeCounter = new TimeCounter(Properties.Settings.Default.xmlPath + "Tasks.xml");
             List<TaskViewModel> l;
-            l = (from c in _timeCounter.Tasks select new TaskViewModel(c)).ToList<TaskViewModel>();
+            l = (from c in TimeCounter.Tasks select new TaskViewModel(c)).ToList<TaskViewModel>();
             _tasks = new ObservableCollection<TaskViewModel>(l);
             Tasks = CollectionViewSource.GetDefaultView(_tasks);
             AddTaskCommand = new RelayCommand(ExecuteAddTaskCommand);

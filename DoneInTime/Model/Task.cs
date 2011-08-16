@@ -88,6 +88,7 @@ namespace DoneInTime.Model
         private void Chrono_Tick(object sender, EventArgs e)
         {
             TimeCount = TimeCount.Add(chrono.Interval);
+            timeCounter.ActualizeTotalTimeCount();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

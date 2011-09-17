@@ -5,6 +5,7 @@
         Title="TimeCounter" Height="350" Width="525" Icon="../Resources/horloge.png">
     <Window.Resources>
         <converters:BooleanToColorConverter x:Key="BooleanToColorConverter" />
+        <converters:TimeSpanConverter x:Key="TimeSpanConverter" />
 
         <BitmapImage x:Key="add" UriSource="../Resources/add.png"/>
         <BitmapImage x:Key="del" UriSource="../Resources/del.png"/>
@@ -75,7 +76,7 @@
             </Button>
             
         </StackPanel>
-        <TextBlock Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Width="70" Text="{Binding Path=TimeCounter.TotalTimeCount}" />
+        <TextBlock Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Width="70" Text="{Binding Path=TimeCounter.TotalTimeCount, Converter={StaticResource TimeSpanConverter}}"/>
         <DataGrid
             AutoGenerateColumns="False" RowStyle="{StaticResource rowStyle}"
             Name="dgTasks" 
@@ -83,7 +84,7 @@
             IsSynchronizedWithCurrentItem="True" SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Task" Width="*" Binding="{Binding Path=Task.Name}"/>
-                <DataGridTextColumn Header="TimeCount" Width="70" Binding="{Binding Path=Task.TimeCount}"/>
+                <DataGridTextColumn Header="TimeCount" Width="70" Binding="{Binding Path=Task.TimeCount, Converter={StaticResource TimeSpanConverter}}"/>
                 <DataGridTemplateColumn Width="130" CellTemplate="{StaticResource TaskButtonTemplate}" />
             </DataGrid.Columns>
         </DataGrid>

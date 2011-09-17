@@ -19,7 +19,7 @@ namespace DoneInTime.Tests
             #endregion
 
             #region Activities
-            tc = new TimeCounter("XmlTestFile.xml");
+            tc = new TimeCounter(@"Resources\XmlTestFile.xml");
             #endregion
 
             #region Asserts

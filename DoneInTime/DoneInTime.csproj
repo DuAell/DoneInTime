@@ -78,6 +78,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\BooleanToColorConverter.cs" />
+    <Compile Include="Converters\TimeSpanConverter.cs" />
     <Compile Include="Model\Task.cs" />
     <Page Include="View\TimeCounter.xaml">
       <Generator>MSBuild:Compile</Generator>

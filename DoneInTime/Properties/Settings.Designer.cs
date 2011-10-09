@@ -31,14 +31,5 @@ namespace DoneInTime.Properties {
                 return ((string)(this["xmlPath"]));
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool allowMultipleRunningTasks {
-            get {
-                return ((bool)(this["allowMultipleRunningTasks"]));
-            }
-        }
     }
 }

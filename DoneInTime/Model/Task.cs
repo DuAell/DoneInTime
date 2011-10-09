@@ -56,20 +56,21 @@ namespace DoneInTime.Model
         #endregion
 
         #region "Methods"
-        public void Start() {
-            if (!Properties.Settings.Default.allowMultipleRunningTasks)
+        public void Start()
+        {
+            foreach (Task t in timeCounter.Tasks)
             {
-                foreach (Task t in timeCounter.Tasks)
-                {
-                    t.Stop();
-                }
+                t.Stop();
             }
+
+            timeCounter.ActiveTask = this;
             chrono.Start();
             IsRunning = true;
         }
 
         public void Stop()
         {
+            timeCounter.ActiveTask = null;
             chrono.Stop();
             IsRunning = false;
         }
@@ -102,7 +103,7 @@ namespace DoneInTime.Model
         #endregion
 
         #region "Constructors"
-        private void Initialize(string name, TimeSpan timeCount, TimeCounter tc)
+        private void Initialize(string name, TimeSpan timeCount, TimeCounter tc, bool isRunning = false)
         {
             Name = name;
             TimeCount = timeCount;
@@ -110,6 +111,7 @@ namespace DoneInTime.Model
             chrono = new DispatcherTimer();
             chrono.Interval = TimeSpan.FromSeconds(1);
             chrono.Tick += Chrono_Tick;
+            if (isRunning) Start();
         }
 
         public Task(string name, TimeCounter tc)
@@ -117,9 +119,9 @@ namespace DoneInTime.Model
             Initialize(name, new TimeSpan(), tc);
         }
 
-        public Task(string name, TimeSpan timeCount, TimeCounter tc)
+        public Task(string name, TimeSpan timeCount, TimeCounter tc, bool isRunning)
         {
-            Initialize(name, timeCount, tc);
+            Initialize(name, timeCount, tc, isRunning);
         }
         #endregion
     }

@@ -18,6 +18,17 @@ namespace DoneInTime.Model
         public TimeSpan TotalTimeCount { get; private set; }
 
         private DispatcherTimer _timer;
+
+        public Task ActiveTask { get; set; }
+
+        public string ActiveTaskDescription {
+            get
+            {
+                if (ActiveTask == null) return "DoneInTime";
+                return ActiveTask.Name + " : " + ActiveTask.TimeCount;
+            }
+        }
+
         #endregion
 
         #region "Events"
@@ -37,6 +48,8 @@ namespace DoneInTime.Model
             }
             TotalTimeCount = ts;
             NotifyPropertyChanged("TotalTimeCount");
+
+            NotifyPropertyChanged("ActiveTaskDescription");
         }
 
         private void InitializeTimer()
@@ -73,15 +86,14 @@ namespace DoneInTime.Model
                                 _xmlTextReader.ReadEndElement();
 
                                 _xmlTextReader.ReadStartElement("IsRunning");
-                                _xmlTextReader.Skip();
+                                bool isRunning = (_xmlTextReader.ReadString() == "True");
                                 _xmlTextReader.ReadEndElement();
 
                                 _xmlTextReader.ReadEndElement();
 
-                                Task t = new Task(name, ts, this);
+                                Task t = new Task(name, ts, this, isRunning);
                                 Tasks.Add(t);
                             }
-
                         }
                     }
                 }

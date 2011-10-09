@@ -26,7 +26,7 @@ namespace DoneInTime.Tests
             Assert.AreEqual(2, tc.Tasks.Count, "Wrong Number Of Tasks");
             Assert.AreEqual("Task 1", tc.Tasks[0].Name, "Wrong name for first task");
             Assert.AreEqual(new TimeSpan(0, 4, 47), tc.Tasks[0].TimeCount, "Wrong timecount for first task");
-            Assert.AreEqual(false, tc.Tasks[0].IsRunning, "Must always be false");
+            Assert.AreEqual(true, tc.Tasks[0].IsRunning, "Wrong isRunning state");
             #endregion
         }
 
@@ -48,6 +48,39 @@ namespace DoneInTime.Tests
 
             #region Asserts
             Assert.AreEqual(expectedString, actualString, "Xml is wrong");
+            #endregion
+        }
+
+        [TestMethod]
+        public void WhenGetActiveTaskDescriptionWithOneRunningTask_VerifyItIsCorrect()
+        {
+            #region Actors
+
+            TimeCounter tc = new TimeCounter(@"..\..\..\DoneInTime.Tests\Resources\XmlTestFile.xml");
+
+            #endregion
+
+            #region Asserts
+
+            Assert.AreEqual("Task 1 : 00:04:47", tc.ActiveTaskDescription, "Wrong active task description");
+
+            #endregion
+        }
+
+        [TestMethod]
+        public void WhenGetActiveTaskDescriptionWithNoRunningTask_VerifyItIsCorrect()
+        {
+            #region Actors
+
+            TimeCounter tc = new TimeCounter(@"..\..\..\DoneInTime.Tests\Resources\XmlTestFile.xml");
+            tc.Tasks[0].Stop();
+
+            #endregion
+
+            #region Asserts
+
+            Assert.AreEqual("DoneInTime", tc.ActiveTaskDescription, "Wrong active task description");
+
             #endregion
         }
     }

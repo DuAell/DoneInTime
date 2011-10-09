@@ -66,8 +66,7 @@ namespace DoneInTime.ViewModel
         {
 
             TimeCounter = new TimeCounter(Properties.Settings.Default.xmlPath + "Tasks.xml");
-            List<TaskViewModel> l;
-            l = (from c in TimeCounter.Tasks select new TaskViewModel(c)).ToList<TaskViewModel>();
+            List<TaskViewModel> l = (from c in TimeCounter.Tasks select new TaskViewModel(c)).ToList<TaskViewModel>();
             _tasks = new ObservableCollection<TaskViewModel>(l);
             Tasks = CollectionViewSource.GetDefaultView(_tasks);
             AddTaskCommand = new RelayCommand(ExecuteAddTaskCommand);

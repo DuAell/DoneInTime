@@ -49,9 +49,13 @@ namespace DoneInTime.ViewModel
         public ICommand ResetTasksCommand { get; internal set; }
         public void ExecuteResetTasksCommand()
         {
-            foreach (TaskViewModel tv in Tasks) 
+            var iResult = System.Windows.MessageBox.Show("Reset all tasks ?", "Reset", System.Windows.MessageBoxButton.OKCancel);
+            if (iResult == System.Windows.MessageBoxResult.OK)
             {
-                tv.Task.TimeCount = new TimeSpan();
+                foreach (TaskViewModel tv in Tasks)
+                {
+                    tv.Task.TimeCount = new TimeSpan();
+                }
             }
         }
         public bool CanExecuteResetTasksCommand()

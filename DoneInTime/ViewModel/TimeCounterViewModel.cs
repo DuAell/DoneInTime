@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Windows.Data;
 using System.Collections.Specialized;
 using System.Configuration;
+using System.IO;
 
 namespace DoneInTime.ViewModel
 {
@@ -68,8 +69,13 @@ namespace DoneInTime.ViewModel
         #region "Constructors"
         public TimeCounterViewModel()
         {
+            var xmlPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "DoneInTime");
+            if (!Directory.Exists(xmlPath))
+            {
+                Directory.CreateDirectory(xmlPath);
+            }
 
-            TimeCounter = new TimeCounter(Properties.Settings.Default.xmlPath + "Tasks.xml");
+            TimeCounter = new TimeCounter(Path.Combine(xmlPath,"Tasks.xml"));
             List<TaskViewModel> l = (from c in TimeCounter.Tasks select new TaskViewModel(c)).ToList<TaskViewModel>();
             _tasks = new ObservableCollection<TaskViewModel>(l);
             Tasks = CollectionViewSource.GetDefaultView(_tasks);

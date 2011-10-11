@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -53,6 +54,8 @@
     </Compile>
     <Compile Include="TaskTests.cs" />
     <Compile Include="TimeCounterTests.cs" />
+    <Compile Include="TimeSpanConverterTests.cs" />
+    <Compile Include="TimeSpanExtensionsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DoneInTime\DoneInTime.csproj">

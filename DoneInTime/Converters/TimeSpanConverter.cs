@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Data;
 using System.ComponentModel;
+using DoneInTime.Common;
 
 namespace DoneInTime.Converters
 {
@@ -17,7 +18,9 @@ namespace DoneInTime.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return TypeDescriptor.GetConverter(new TimeSpan()).ConvertFrom(value);
+            var stringValue = (string)value;
+
+            return stringValue.ToTimeSpan();
         }
     }
 }
